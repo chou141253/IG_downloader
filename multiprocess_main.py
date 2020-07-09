@@ -5,8 +5,8 @@ from multiprocessing import Process
 if __name__ == "__main__":
 
     hashtag_list = ['love', 'instagood']
-    ig_account = [{'account':'ntnuaiotlab2020@gmail.com', 'password':'ntnuaiotlab2020'},
-                  {'account':'ntnuaiotlab2020.2@gmail.com', 'password':'ntnuaiotlab2020'}]
+    ig_account = [{'account':'??@gmail.com', 'password':'??'},
+                  {'account':'??@gmail.com', 'password':'??'}]
 
 
     process = []
