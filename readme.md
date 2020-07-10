@@ -21,6 +21,6 @@ python multiprocess_main.py # may be block by instagram
 |has_monitor|要不要讓網頁顯示出來|
 |basic_scroll_step|每次往多少畫面|
 |refersh_toppost_times|刷新多少次top posts|
-|save_rate|美下載多少張圖片存一次json|
+|save_rate|每下載多少張圖片存一次json|
 |load_prvs_json|須不需要從上次下載的之後繼續下載|
 |log|要不要顯示 console log|
