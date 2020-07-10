@@ -1,0 +1,4 @@
+python = 3.6
+beautifulsoup = 4.9.1
+selenium = 3.141.0
+chromedriver = chorme version: chorme81, os: linux64
