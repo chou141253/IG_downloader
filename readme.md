@@ -10,7 +10,7 @@ run this:
 python main.py
 ```
 
-or run this:
+multiprocess will cause some problem, so don't run this:
 ```
 python multiprocess_main.py # may be block by instagram
 ```
