@@ -1,5 +1,10 @@
 # This is a python tool for download instagram image by hashtag.
 
+before running, please check your chorme version and download driver:
+[84](https://chromedriver.storage.googleapis.com/index.html?path=84.0.4147.30/)
+[83](https://chromedriver.storage.googleapis.com/index.html?path=83.0.4103.39/)
+[81](https://chromedriver.storage.googleapis.com/index.html?path=81.0.4044.138/)
+
 run this:
 ```
 python main.py
