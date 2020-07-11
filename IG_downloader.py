@@ -2,6 +2,7 @@ import os
 import time
 # from multiprocessing import Process
 import urllib
+import urllib.request as urlreq
 # from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import json
@@ -21,9 +22,9 @@ class Downloader(object):
                  ig_password,
                  chrome_driver,
                  root_savepath='./instagram_datas/',
-                 browser_type='chorme',
+                 browser_type='chrome',
                  has_monitor=False,
-                 basic_scroll_step=910,
+                 basic_scroll_step=500,  # 910
                  refersh_toppost_times=5,
                  save_rate=300,
                  load_prvs_json=False,
@@ -39,13 +40,13 @@ class Downloader(object):
             save_rate : save json file every ? download.
             log : want to log message in terminal or not.
         """
-        assert browser_type == 'chorme'
+        assert browser_type == 'chrome'
         self.load_prvs_json = load_prvs_json
         self.hashtag = hashtag
         self.target_download_numbers = target_download_numbers
         self.log = log
         self.ig_account, self.ig_password = ig_account, ig_password
-        self.chorme_driverpath = chrome_driver
+        self.chrome_driverpath = chrome_driver
         self.has_monitor = has_monitor
         self.root_url = 'https://www.instagram.com/accounts/login/?next=/explore/tags/'
         self.goal_url = self.root_url + urllib.parse.quote(hashtag)  # get url
@@ -68,7 +69,7 @@ class Downloader(object):
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument("--no-sandbox")
-        driver = webdriver.Chrome(executable_path=self.chorme_driverpath,
+        driver = webdriver.Chrome(executable_path=self.chrome_driverpath,
                                   service_args=["--ignore-ssl-errors=true"],
                                   chrome_options=chrome_options,
                                   )
@@ -143,7 +144,9 @@ class Downloader(object):
                 img_name = img_url.split('/')[-1].split('?')[0]
                 if img_name in self.success_download:
                     continue  # skip this download
-                urllib.request.urlretrieve(img_url, self.save_img_path + "/" + img_name)
+                # urllib.request.urlretrieve(img_url, self.save_img_path + "/" + img_name)
+                # we need to explicitly import urllib.request as request
+                urlreq.urlretrieve(img_url, self.save_img_path + "/" + img_name)
                 self.success_download[img_name] = img_url
             except:
                 self.fail_download[img_name] = img_url
