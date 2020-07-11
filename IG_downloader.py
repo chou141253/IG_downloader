@@ -85,14 +85,15 @@ class Downloader(object):
                 print("   * create folder: {}".format(path))
 
     def save_json(self):
+        hashtag_encode = urllib.parse.quote(self.hashtag)
         if self.log:
-            print("[hashtag-->{}] saving json...".format(self.hashtag))
-        with open(self.root_savepath + "/{}_success.json".format(self.hashtag), "w") as fjson:
+            print("[hashtag-->{}] saving json...".format(hashtag_encode))
+        with open(self.root_savepath + "/{}_success.json".format(hashtag_encode), "w") as fjson:
             fjson.write(json.dumps(self.success_download, indent=2))
-        with open(self.root_savepath + "/{}_fails.json".format(self.hashtag), "w") as fjson:
+        with open(self.root_savepath + "/{}_fails.json".format(hashtag_encode), "w") as fjson:
             fjson.write(json.dumps(self.fail_download, indent=2))
         if self.log:
-            print("[hashtag-->{}] saving json done.".format(self.hashtag))
+            print("[hashtag-->{}] saving json done.".format(hashtag_encode))
 
     def start_download(self):
         self.driver.get(self.goal_url)
@@ -125,6 +126,8 @@ class Downloader(object):
                 self.save_json()
 
     def download_top_posts(self):
+        
+        time.sleep(4)
 
         bsoup = BeautifulSoup(self.driver.page_source, "html.parser")
 
