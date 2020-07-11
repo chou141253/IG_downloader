@@ -113,7 +113,9 @@ class Downloader(object):
 
         self.scroll_down()  # scroll down once for optimizer web page
         self.save_json()
-
+        
+        time.sleep(3.5) # prevent error
+        
         count = len(self.success_download)
         while count < self.target_download_numbers:
             self.download_most_recent()
