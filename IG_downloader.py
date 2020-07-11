@@ -49,7 +49,8 @@ class Downloader(object):
         self.ig_account, self.ig_password = ig_account, ig_password
         if sys.platform == "win32":
             self.chrome_driverpath = chrome_driver + ".exe"
-        self.chrome_driverpath = chrome_driver
+        else:
+            self.chrome_driverpath = chrome_driver
         self.has_monitor = has_monitor
         self.root_url = 'https://www.instagram.com/accounts/login/?next=/explore/tags/'
         self.goal_url = self.root_url + urllib.parse.quote(hashtag)  # get url
