@@ -24,7 +24,7 @@ class Downloader(object):
                  root_savepath='./instagram_datas/',
                  browser_type='chrome',
                  has_monitor=False,
-                 basic_scroll_step=500,  # 910
+                 basic_scroll_step=800,  # 910
                  refersh_toppost_times=5,
                  save_rate=300,
                  load_prvs_json=False,
