@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 # from multiprocessing import Process
 import urllib
@@ -46,6 +47,8 @@ class Downloader(object):
         self.target_download_numbers = target_download_numbers
         self.log = log
         self.ig_account, self.ig_password = ig_account, ig_password
+        if sys.platform == "win32":
+            self.chrome_driverpath = chrome_driver + ".exe"
         self.chrome_driverpath = chrome_driver
         self.has_monitor = has_monitor
         self.root_url = 'https://www.instagram.com/accounts/login/?next=/explore/tags/'

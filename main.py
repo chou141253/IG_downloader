@@ -10,7 +10,7 @@ if __name__ == "__main__":
     parser.add_argument("--account", type=str, required=True, help="ig account")
     parser.add_argument("--passwd", type=str, required=True, help="ig passwd")
     parser.add_argument("--tagFile", type=str, default="./instagram_rank.json", help="path to tag file")
-    parser.add_argument("--chromeDriver", type=str, default="./web_driver/chromedriver_linux64/chromedriver.exe", help="path to chrome driver")
+    parser.add_argument("--chromeDriver", type=str, default="./web_driver/chromedriver_linux64/chromedriver", help="path to chrome driver")
     args = parser.parse_args()
 
     hashtagTable = read(args.tagFile)
