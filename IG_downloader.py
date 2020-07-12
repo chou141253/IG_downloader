@@ -25,8 +25,9 @@ class Downloader(object):
                  root_savepath='./instagram_datas/',
                  browser_type='chrome',
                  has_monitor=False,
-                 basic_scroll_step=800,  # 910
+                 basic_scroll_step=1000,  # 910
                  refersh_toppost_times=5,
+                 largest_stuck_numbers=40,
                  save_rate=300,
                  load_prvs_json=False,
                  log=True):
@@ -43,6 +44,7 @@ class Downloader(object):
         """
         assert browser_type == 'chrome'
         self.load_prvs_json = load_prvs_json
+        self.largest_stuck_numbers = largest_stuck_numbers
         self.hashtag = hashtag
         self.target_download_numbers = target_download_numbers
         self.log = log
@@ -114,9 +116,9 @@ class Downloader(object):
 
         self.scroll_down()  # scroll down once for optimizer web page
         self.save_json()
-        
+
         time.sleep(3.5) # prevent error
-        
+
         count = len(self.success_download)
         prvs_count, stack_times = -1, 0
         while count < self.target_download_numbers:
@@ -128,7 +130,7 @@ class Downloader(object):
                 print("hashtag-->{}, process:{}/{}".format(self.hashtag, count, self.target_download_numbers))
             if count % self.save_rate == 0:
                 self.save_json()
-                
+
             # protect stuck on same page too long.
             if prvs_count == count:
                 stack_times += 1
@@ -137,11 +139,11 @@ class Downloader(object):
             prvs_count = count
             if stack_times>self.largest_stuck_numbers:
                 return 'fail-stuck'
-        
+
         return 'success'
 
     def download_top_posts(self):
-        
+
         time.sleep(4)
 
         bsoup = BeautifulSoup(self.driver.page_source, "html.parser")
@@ -213,7 +215,7 @@ class Downloader(object):
             )
         except:
             print("[LOGIN ERROR 1] driver not find element!")
-        
+
         try:
             login_btn = self.driver.find_element(By.CSS_SELECTOR, ".L3NKy")
             login_btn.click()

@@ -1,6 +1,7 @@
 from IG_downloader import Downloader
 from hashtag_reader import read
 import argparse
+import time
 
 
 if __name__ == "__main__":
@@ -14,13 +15,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     hashtagTable = read(args.tagFile)
-    
+
     ix = args.begin
-    
+
     while ix < args.end + 1:
-        
+
         start_time = time.time() # just for print time cost
-        
+
         downloader = Downloader(hashtag=hashtagTable[str(ix)][1:],
                                 ig_account=args.account,
                                 ig_password=args.passwd,
@@ -31,8 +32,8 @@ if __name__ == "__main__":
         if 'fail' in check:
             ix -= 1
         ix += 1
-        
+
         print("cost time: {} secs".format(time.time()-start_time))
         time.sleep(0.5)
-        
-        
+
+
