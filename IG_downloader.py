@@ -136,8 +136,7 @@ class Downloader(object):
                 stack_times = 0
             prvs_count = count
             if stack_times>self.largest_stuck_numbers:
-                return 'fail-stack'
-                break
+                return 'fail-stuck'
         
         return 'success'
 
