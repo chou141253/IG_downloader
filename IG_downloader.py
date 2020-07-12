@@ -118,6 +118,7 @@ class Downloader(object):
         time.sleep(3.5) # prevent error
         
         count = len(self.success_download)
+        prvs_count, stack_times = -1, 0
         while count < self.target_download_numbers:
             self.download_most_recent()
             self.scroll_down()
@@ -127,6 +128,18 @@ class Downloader(object):
                 print("hashtag-->{}, process:{}/{}".format(self.hashtag, count, self.target_download_numbers))
             if count % self.save_rate == 0:
                 self.save_json()
+                
+            # protect stuck on same page too long.
+            if prvs_count == count:
+                stack_times += 1
+            else:
+                stack_times = 0
+            prvs_count = count
+            if stack_times>self.largest_stuck_numbers:
+                return 'fail-stack'
+                break
+        
+        return 'success'
 
     def download_top_posts(self):
         
@@ -201,9 +214,13 @@ class Downloader(object):
             )
         except:
             print("[LOGIN ERROR 1] driver not find element!")
-
-        login_btn = self.driver.find_element(By.CSS_SELECTOR, ".L3NKy")
-        login_btn.click()
+        
+        try:
+            login_btn = self.driver.find_element(By.CSS_SELECTOR, ".L3NKy")
+            login_btn.click()
+        except:
+            login_btn = self.driver.find_element(By.CSS_SELECTOR, ".L3NKy")
+            login_btn.click()
 
         time.sleep(3)  # wait for login
 
