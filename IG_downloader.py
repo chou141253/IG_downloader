@@ -146,8 +146,14 @@ class Downloader(object):
 
         time.sleep(4)
 
-        bsoup = BeautifulSoup(self.driver.page_source, "html.parser")
+        try:
+            element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME, 'EZdmt'))
+            )
+        except:
+            print("[LOGIN ERROR 1] driver not find element!")
 
+        bsoup = BeautifulSoup(self.driver.page_source, "html.parser")
         top_posts_div = bsoup.find_all('div', 'EZdmt')
         assert len(top_posts_div) == 1
 
