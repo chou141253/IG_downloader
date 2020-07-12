@@ -14,11 +14,25 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     hashtagTable = read(args.tagFile)
-    for ix in range(args.begin, args.end + 1):
+    
+    ix = args.begin
+    
+    while ix < args.end + 1:
+        
+        start_time = time.time() # just for print time cost
+        
         downloader = Downloader(hashtag=hashtagTable[str(ix)][1:],
                                 ig_account=args.account,
                                 ig_password=args.passwd,
                                 target_download_numbers=1200,
                                 chrome_driver=args.chromeDriver
                                 )
-        downloader.start_download()
+        check = downloader.start_download()
+        if 'fail' in check:
+            ix -= 1
+        ix += 1
+        
+        print("cost time: {} secs".format(time.time()-start_time))
+        time.sleep(0.5)
+        
+        
